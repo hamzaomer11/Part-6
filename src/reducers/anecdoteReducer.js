@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice, current } from "@reduxjs/toolkit"
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -32,6 +32,9 @@ const anecdoteSlice = createSlice({
         ...anecdoteToChange, 
         votes: anecdoteToChange.votes + 1
       }
+
+      console.log(current(state))
+
       return state.map(anecdote =>
         anecdote.id !== id ? anecdote : changedAncedote 
       )
