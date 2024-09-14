@@ -11,24 +11,6 @@ const anecdotesAtStart = [
 
 export const getId = () => (100000 * Math.random()).toFixed(0)
 
-/* export const addVote = (id) => {
-  return {
-    type: 'ADD_VOTES',
-    payload: { id }
-  }
-}
-
-export const addAnecdote = (content) => {
-  return {
-    type: 'ADD_ANECDOTE',
-    payload: {
-      content,
-      id: getId(),
-      votes: 0
-    }
-  }
-} */
-
 const asObject = (anecdote) => {
   return {
     content: anecdote,
@@ -36,40 +18,15 @@ const asObject = (anecdote) => {
     votes: 0
   }
 }
-
+  
 const initialState = anecdotesAtStart.map(asObject)
-
-/* const anecdoteReducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-  switch(action.type) {
-    case 'DO_NOTHING':
-      return initialState
-    case 'ADD_VOTES': {
-      const id = action.payload.id
-      const anecdoteToChange = state.find(a => a.id === id)
-      const changedAncedote = { 
-        ...anecdoteToChange, 
-        votes: anecdoteToChange.votes + 1
-      }
-      return state.map(anecdote =>
-        anecdote.id !== id ? anecdote : changedAncedote 
-      )
-    }
-    case 'ADD_ANECDOTE': {
-      return [...state, action.payload]
-    }
-    default:
-      return state
-  }
-} */
 
 const anecdoteSlice = createSlice({
   name: 'anecdotes',
   initialState,
-  reducer: {
+  reducers: {
     addVote(state, action) {
-      const id = action.payload.id
+      const id = action.payload
       const anecdoteToChange = state.find(a => a.id === id)
       const changedAncedote = { 
         ...anecdoteToChange, 
@@ -80,7 +37,12 @@ const anecdoteSlice = createSlice({
       )
     },
     addAnecdote(state, action) {
-      return [...state, action.payload]
+      const content = action.payload
+      state.push({
+        content,
+        id: getId(),
+        votes: 0
+      })
     }
   }
 })
