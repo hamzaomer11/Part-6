@@ -19,7 +19,7 @@ const AnecdoteList = () => {
 
     return (
         <div>
-          {anecdotes.sort(orderByvotes).map(anecdote =>
+          {[...anecdotes].sort(orderByvotes).map(anecdote =>
             <div key={anecdote.id}>
               <div>
                 {anecdote.content}
