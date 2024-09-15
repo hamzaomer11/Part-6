@@ -39,6 +39,11 @@
       "id": "a92d",
       "content": "Testing 2",
       "votes": 0
+    },
+    {
+      "id": "c18d",
+      "content": "new Test",
+      "votes": 0
     }
   ]
 }
