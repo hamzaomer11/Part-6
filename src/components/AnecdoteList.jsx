@@ -15,7 +15,7 @@ const AnecdoteList = () => {
 
     const vote = (id, content) => {
         console.log('vote', id)
-        dispatch(updateVote(content))
+        dispatch(updateVote(id))
         dispatch(setNotification(`You voted ${content}`))
         setTimeout(() => {
           dispatch(clearNotification())
@@ -24,7 +24,6 @@ const AnecdoteList = () => {
 
     return (
         <div>
-          {console.log(typeof [...anecdotes], 'anecdotes spread array')}
           {[...anecdotes].sort(orderByvotes).map(anecdote =>
             <div key={anecdote.id}>
               <div>

@@ -60,14 +60,11 @@ export const addAnecdote = (content) => {
 export const updateVote = id => {
   return async (dispatch, getState) => {
       const anecdoteToChange = getState().anecdotes.find(a => a.id === id)
-      console.log(getState().anecdotes, 'state anecdotes')
-      console.log(id, 'object payload id')
-      console.log(anecdoteToChange, 'matching anecdote')
       const changedAncedote = { 
         ...anecdoteToChange, 
         votes: anecdoteToChange.votes + 1
       }
-    const updatedAnecdote = await anecdoteService.update(changedAncedote.id, changedAncedote)
+    const updatedAnecdote = await anecdoteService.update(id, changedAncedote)
     dispatch(updateAnecdote(updatedAnecdote))
   }
 }
