@@ -16,7 +16,6 @@ const Notification = () => {
  
   return (
     <div style={style}>
-      {console.log(notification)}
       {notification}
     </div>
   )

@@ -12,6 +12,18 @@ const AnecdoteForm = () => {
     mutationFn: createAnecdote,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['anecdotes'] })
+    },
+    onError: () => {
+      dispatch({
+        type: 'SHOW-NOTIFICATION',
+        payload: `too short anecdote, must have length 5 or more`
+      })
+      setTimeout(() =>
+        dispatch({
+          type: 'HIDE-NOTIFICATION',
+          payload: ''
+        })
+      , 5000)
     }
   })
 
@@ -20,16 +32,18 @@ const AnecdoteForm = () => {
     const content = event.target.anecdote.value
     event.target.anecdote.value = ''
     newAnecdoteMutation.mutate({ content, votes: 0 })
-    dispatch({
-      type: 'SHOW-NOTIFICATION',
-      payload: `anecdote "${content}" added`
-    })
-    setTimeout(() =>
+    if(newAnecdoteMutation.isSuccess) {
       dispatch({
-        type: 'HIDE-NOTIFICATION',
-        payload: ''
+        type: 'SHOW-NOTIFICATION',
+        payload: `anecdote "${content}" added`
       })
-    , 5000)
+      setTimeout(() =>
+        dispatch({
+          type: 'HIDE-NOTIFICATION',
+          payload: ''
+        })
+      , 5000)
+    }
   }
 
   return (
